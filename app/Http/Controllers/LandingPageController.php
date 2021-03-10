@@ -14,10 +14,8 @@ class LandingPageController extends Controller
      */
     public function index()
     {
-        $products = Product::take(8)->InRandomOrder()->get();
+        $products = Product::take(8)->where('featured', true)->get();
 
         return view('wayshop.landing', compact('products'));
     }
-
-
 }

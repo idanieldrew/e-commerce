@@ -116,7 +116,7 @@
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet lacus enim.</p>
                 </div>
                 <div class="featured-products-box owl-carousel owl-theme">
-                    @foreach($mightAlsoLike as $products)
+                    @foreach($mightAlsoLike as $p)
                     <div class="item">
                         <div class="products-single fix">
                             <div class="box-img-hover">
@@ -127,12 +127,12 @@
                                         <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
                                         <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
                                     </ul>
-                                    <a class="cart" href="{{ route('special-product',$products->id) }}">Add to Cart</a>
+                                    <a class="cart" href="{{ route('special-product',$p->id) }}">Add to Cart</a>
                                 </div>
                             </div>
                             <div class="why-text">
-                                <h4>{{ $products->name }}</h4>
-                                <h5>{{ $products->price }}</h5>
+                                <h4>{{ $p->name }}</h4>
+                                <h5>{{ $p->price }}</h5>
                             </div>
                         </div>
                     </div>

@@ -44,5 +44,5 @@ Route::post('/saveForLater/switchToCart/{product}', 'SaveForLaterController@swit
 Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
 
 
-Route::patch('/cart/{product}', 'CartController@update')->name('cart.update');
+Route::post('/cart/{product}', 'CartController@update')->name('cart.update');
 

@@ -100,7 +100,7 @@
                                 <div class="type-lb">
                                     <p class="sale">Sale</p>
                                 </div>
-                                <img src="{{ asset('front-assets/images/img-pro-01.jpg') }}" class="img-fluid"
+                                <img src="{{ asset('front-assets/images/Desktops.jpg') }}" class="img-fluid"
                                      alt="Image">
                                 <div class="mask-icon">
                                     <ul>
@@ -111,7 +111,7 @@
                                         <li><a href="#" data-toggle="tooltip" data-placement="right"
                                                title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
                                     </ul>
-                                    <a class="cart" href="#">Add to Cart</a>
+                                    <a class="cart" href="{{ route('special-product' , $product->id) }}">details...</a>
                                 </div>
                             </div>
                             <div class="why-text">
@@ -127,7 +127,7 @@
     </div>
 
 
-    <a href="{{ route('shop-page') }}"><button class="btn btn-primary" style="text-align: center">more</button></a>
+    <a  style="margin-left:50%" href="{{ route('shop-page') }}"><button class="btn btn-primary">more</button></a>
 
     <!-- End Products  -->
 

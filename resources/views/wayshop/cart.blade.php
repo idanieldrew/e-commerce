@@ -50,48 +50,52 @@
                             </thead>
                             @foreach(\Gloudemans\Shoppingcart\Facades\Cart::content() as $item)
                                 <tbody>
-                                <tr>
-                                    <td class="thumbnail-img">
-                                        <a href="#">
-                                            <img class="img-fluid"
-                                                 src="{{ asset('front-assets/images/instagram-img-01.jpg') }}" alt=""/>
-                                        </a>
-                                    </td>
-                                    <td class="name-pr">
-                                        <a href="#">
-                                            {{ $item->name }}
-                                        </a>
-                                    </td>
-                                    <td class="price-pr">
-                                        <p>{{ $item->price }}</p>
-                                    </td>
-                                    <td class="quantity-box">
+                                <td class="thumbnail-img">
+                                    <a href="#">
+                                        <img class="img-fluid"
+                                             src="{{ asset('front-assets/images/instagram-img-01.jpg') }}" alt=""/>
+                                    </a>
+                                </td>
+                                <td class="name-pr">
+                                    <a href="#">
+                                        {{ $item->name }}
+                                    </a>
+                                </td>
+                                <td class="price-pr">
+                                    <p>{{ $item->price }}</p>
+                                </td>
+                                <td>
+                                    <form action="{{ route('cart.update',$item->rowId) }}" method="post">
+                                        @csrf
                                         <div>
-                                            <select class="quantity" data-id="{{ $item->rowId }}">
-                                                @for ($i = 1; $i < 5 + 1 ; $i++)
-                                                    <option {{ $item->qty == $i ? 'selected'  : '' }}>{{ $i }}</option>
-                                                @endfor
-                                            </select>
+                                            <button type="submit">
+                                                <select class="quantity" data-id="{{ $item->rowId }}">
+                                                    @for ($i = 1; $i < 5 + 1 ; $i++)
+                                                        <option {{ $item->qty == $i ? 'selected'  : '' }}>{{ $i }}</option>
+                                                    @endfor
+                                                </select>
+                                            </button>
                                         </div>
-                                    </td>
-                                    <td class="total-pr">
-                                        <p>{{ $item->subtotal }}</p>
-                                    </td>
-                                    <td class="remove-pr">
-                                        <form action="{{ route('cart-destroy',$item->rowId) }}" method="post">
-                                            @method('delete')
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger">
-                                                <i class="fas fa-times"></i>
-                                            </button>
-                                        </form>
-                                        <form action="{{ route('cart.SaveForLater',$item->rowId) }}" method="post">
-                                            @csrf
-                                            <button type="submit" class="btn btn-warning">
-                                                Save for later
-                                            </button>
-                                        </form>
-                                    </td>
+                                    </form>
+                                </td>
+                                <td class="total-pr">
+                                    <p>{{ $item->subtotal }}</p>
+                                </td>
+                                <td class="remove-pr">
+                                    <form action="{{ route('cart-destroy',$item->rowId) }}" method="post">
+                                        @method('delete')
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </form>
+                                    <form action="{{ route('cart.SaveForLater',$item->rowId) }}" method="post">
+                                        @csrf
+                                        <button type="submit" class="btn btn-warning">
+                                            Save for later
+                                        </button>
+                                    </form>
+                                </td>
                                 </tr>
                                 </tbody>
                             @endforeach
@@ -138,7 +142,7 @@
                             <div class="ml-auto font-weight-bold">0</div>
                         </div>
                         <div class="d-flex">
-                            <h4>Tax</h4>
+                            <h4>Tax(15%)</h4>
                             <div
                                 class="ml-auto font-weight-bold">{{ \Gloudemans\Shoppingcart\Facades\Cart::tax() }}</div>
                         </div>
@@ -197,14 +201,16 @@
                                             <p>{{ $item->price }}</p>
                                         </td>
                                         <td class="remove-pr">
-                                            <form action="{{ route('SaveForLater.destroy',$item->rowId) }}" method="post">
+                                            <form action="{{ route('SaveForLater.destroy',$item->rowId) }}"
+                                                  method="post">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit" class="btn btn-danger">
                                                     <i class="fas fa-times"></i>
                                                 </button>
                                             </form>
-                                            <form action="{{ route('SaveForLater.switchToCart',$item->rowId) }}" method="post">
+                                            <form action="{{ route('SaveForLater.switchToCart',$item->rowId) }}"
+                                                  method="post">
                                                 @csrf
                                                 <button type="submit" class="btn btn-warning">
                                                     Save in Cart
@@ -225,7 +231,7 @@
     <!-- End Cart -->
 
 @endsection
-@section('sc')
+{{--@section('sc')
 <script src="{{ asset('js/app.js') }}"></script>
 <script>
     (function(){
@@ -249,4 +255,4 @@
     })();
 </script>
 
-@endsection
+@endsection--}}

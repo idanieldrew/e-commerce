@@ -28,7 +28,7 @@
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="{{ asset('front-assets/css/responsive.css') }}">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('front-asset/css/custom.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('front-asset/css/custom.css') }}"> --}}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!--[if lt IE 9]>
@@ -40,7 +40,7 @@
 
 <body>
 
-    @include('wayshop.layouts.header')
+@include('wayshop.layouts.header')
     @yield('content')
     @include('wayshop.layouts.footer')
 
@@ -48,6 +48,9 @@
     <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
 
     <!-- ALL JS FILES -->
+{{--    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>--}}
     <script src="{{ asset('front-assets/js/jquery-3.2.1.min.js') }}" async defer></script>
     <script src="{{ asset('front-assets/js/popper.min.js') }}" async defer></script>
     <script src="{{ asset('front-assets/js/bootstrap.min.js') }}" async defer></script>

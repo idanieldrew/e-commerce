@@ -84,6 +84,7 @@
     </div>
 </div>
 <!-- End Instagram Feed  -->
+
  <!-- Start Footer  -->
  <footer>
     <div class="footer-main">
