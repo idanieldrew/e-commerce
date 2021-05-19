@@ -46,8 +46,8 @@
 <body>
     <script src="https://www.google.com/recaptcha/api.js?" async defer></script>
 
+    @include('wayshop.layouts.header')
     <div id="app">
-        @include('wayshop.layouts.header')
         @yield('content')
     </div>
     @include('wayshop.layouts.footer')

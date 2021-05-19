@@ -34,14 +34,15 @@ class ShopController extends Controller
             $categoryName = 'feacher';
         }
         if (request()->sort == 'low_hight') {
-            $products = $products->orderBy('price')->paginate(9);
+            $products = $products->orderBy('price')->get();
         } elseif (request()->sort == 'hight_low') {
-            $products = $products->orderBy('price', 'desc')->paginate(9);
+            $products = $products->orderBy('price', 'desc')->get();
         } else {
-            $products = $products->paginate(9);
+            $products = $products->get();
         }
+         return view('wayshop.shop', compact('products', 'categories', 'categoryName'));
 
-        return view('wayshop.shop', compact('products', 'categories', 'categoryName'));
+        // return response()->json([$products, $categories, $categoryName]);
     }
 
     /**
@@ -53,7 +54,7 @@ class ShopController extends Controller
     public function show($id)
     {
         $product = Product::where('id', $id)->findOrFail($id);
-        session()->put('quantity',$product->quantity);
+        session()->put('quantity', $product->quantity);
         $mightAlsoLike = Product::where('id', '!=', $id)->take(5)->inRandomOrder()->get();
 
         return view('wayshop.product', compact(['product'], ['mightAlsoLike']));
@@ -69,7 +70,7 @@ class ShopController extends Controller
     {
         // $query =  $request->input('query');
 
-        $products = Product::where('featured', true)->where('name','LIKE', "%" . $request->keyword . "%")->orWhere('details','like', "%" . $request->keyword . "%")->orWhere('description','like',"%". $request->keyword . "%")->orWhere('price','LIKE',"%" . $request->keyword . "%")->get();
+        $products = Product::where('featured', true)->where('name', 'LIKE', "%" . $request->keyword . "%")->orWhere('details', 'like', "%" . $request->keyword . "%")->orWhere('description', 'like', "%" . $request->keyword . "%")->orWhere('price', 'LIKE', "%" . $request->keyword . "%")->get();
 
         return response()->json($products);
     }
