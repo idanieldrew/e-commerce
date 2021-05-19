@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Coupon;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 
 class CouponController extends Controller
@@ -35,7 +36,16 @@ class CouponController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $coupon = Coupon::where('code', $request->couponCode)->first();
+
+        if (!$coupon) {
+            return redirect()->route('checkout.index')->withErrors('invalid coupon code.');
+        }
+        session()->put('coupon', [
+            'name' => $coupon->code,
+            'discount' => $coupon->isDiscount(Cart::subtotal())
+        ]);
+        return redirect()->route('checkout.index')->with('success-messahe', 'coupon is submit');
     }
 
     /**
@@ -80,6 +90,8 @@ class CouponController extends Controller
      */
     public function destroy(Coupon $coupon)
     {
-        //
+        session()->forget('coupon');
+
+        return redirect()->route('checkout.index')->with('success-message', 'coupon successfully deleted');
     }
 }

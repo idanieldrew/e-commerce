@@ -23,7 +23,7 @@ Route::get('/shop', 'ShopController@index')->name('shop-page');
 Route::get('/shop/{id}', 'ShopController@show')->name('special-product');
 
 // cart page
-Route::get('/cart', 'CartController@index')->name('cart-page');
+Route::get('/cart', 'CartController@index')->middleware('auth')->name('cart.index');
 
 // submit a product
 Route::post('/cart', 'CartController@store')->name('cart-store');
@@ -43,6 +43,27 @@ Route::post('/saveForLater/switchToCart/{product}', 'SaveForLaterController@swit
 
 Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
 
+Route::post('/checkout', 'CheckOutController@store')->name('checkout.store');
 
-Route::post('/cart/{product}', 'CartController@update')->name('cart.update');
 
+Route::patch('/cart/{id}', 'CartController@update')->name('cart.update');
+
+
+Route::post('/coupon', 'CouponController@store')->name('coupon.store');
+
+
+Route::delete('remove-coupon', 'CouponController@destroy')->name('coupon.destroy');
+
+// serch products
+Route::get('/search', 'shopController@search')->name('shop.search');
+
+Route::get('/searches', 'shopController@searches')->name('shop.searches');
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

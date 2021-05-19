@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use App\Order;
+use App\OrderProduct;
+use Cartalyst\Stripe\Exception\CardErrorException;
+
 
 class CheckoutController extends Controller
 {
@@ -13,72 +18,64 @@ class CheckoutController extends Controller
      */
     public function index()
     {
-        return view('wayshop.checkout');
-    }
+        return view('wayshop.checkout')->with([
+            'discount' => $this->getValues()->get('discount'),
+            'newSubtotal' => $this->getValues()->get('newSubtotal'),
+            'newTax' => $this->getValues()->get('newTax'),
+            'newTotal' => $this->getValues()->get('newTotal'),
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        ]);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $this->addDataToOrders($request);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    protected function addDataToOrders(Request $request)
     {
-        //
+        $order = Order::create([
+            'user_id' => auth()->user() ? auth()->user()->id : null,
+            'billing_email' => $request->email,
+            'billing_name' => $request->name,
+            'billing_address' => $request->address,
+            'billing_city' => $request->city,
+            'billing_province' => $request->province,
+            'billing_postalcode' => $request->postalcode,
+            'billing_phone' => $request->phone,
+            'billing_name_on_card' => $request->name_on_card,
+            'billing_discount' => $this->getValues()->get('discount'),
+            'billing_discount_code' =>  $this->getValues()->get('code'),
+            'billing_subtotal' => $this->getValues()->get('newSubtotal'),
+            'billing_tax' =>  $this->getValues()->get('newTax'),
+            'billing_total' =>  12345,
+            'error' => 'error',
+        ]);
+
+        foreach (Cart::content() as $value) {
+            OrderProduct::create([
+                'order_id' => $order->id,
+                'product_id' => $value->id
+                //quantity ???
+            ]);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    private function getValues()
     {
-        //
-    }
+        //tax = 15
+        $tax = config('cart.tax') / 100;
+        $discount = session()->get('coupon')['discount'] ?? 0;
+        $newSubtotal = Cart::subtotal() - $discount;
+        $newTax = $newSubtotal * $tax;
+        $newTotal = $newSubtotal * $newTax;
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return collect([
+            'tax' => $tax,
+            'discount' => $discount,
+            'newSubtotal' => $newSubtotal,
+            'newTax' => $newTax,
+            'newTotal' => $newTotal,
+        ]);
     }
 }

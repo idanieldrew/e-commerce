@@ -1,6 +1,14 @@
 @extends('wayshop.layouts.master')
 @section('content')
-
+<div>
+    @if (count($errors) > 0)
+        @foreach ($errors as $error)
+            <ul>
+                <li>{{ $error }}</li>
+            </ul>
+        @endforeach
+    @endif
+</div>
 
     <!-- Start All Title Box -->
     <div class="all-title-box">
@@ -166,13 +174,24 @@
                     <div class="right-product-box">
                         <div class="product-item-filter row">
                             <div class="col-12 col-sm-8 text-center text-sm-left">
+                                {{-- <select>
+									<option>Nothing</option>
+									<option value="1" id="low-to-hight">low to hight</option>
+									<option value="2">High Price → High Price</option>
+									<option value="3">Low Price → High Price</option>
+									<option value="4">Best Selling</option>
+                                </select> --}}
+                            </div>
                                 <a class="active"
-                                    href="{{ route('shop-page', ['category' => request()->category, 'sort' => 'low_hight']) }}">low
-                                    to hight</a>
+                                    href="{{ route('shop-page', ['category' => request()->category, 'sort' => 'low_hight']) }}"
+                                    id="low-to-hight" onclick="lowTo()">
+                                    low to hight
+                                </a>
                                 |
                                 <a
-                                    href="{{ route('shop-page', ['category' => request()->category, 'sort' => 'hight_low']) }}">hight
-                                    to low</a>
+                                    href="{{ route('shop-page', ['category' => request()->category, 'sort' => 'hight_low']) }}">
+                                    hight to low
+                                </a>
                             </div>
                             <div class="col-12 col-sm-4 text-center text-sm-right">
                                 <ul class="nav nav-tabs ml-auto">
@@ -199,8 +218,8 @@
                                                         <div class="type-lb">
                                                             <p class="sale">Sale</p>
                                                         </div>
-                                                        <img src="{{ asset('front-assets/images/' . $categoryName . '.jpg') }}"
-                                                            class="img-fluid" alt="Image">
+                                                        <img src="{{ asset('front-assets/images/Desktops.jpg') }}" class="img-fluid" alt="Image">
+{{--                                                        <img src="{{ asset('storage/' . $product->image) }}" class="img-fluid" alt="Image">--}}
                                                         <div class="mask-icon">
                                                             <ul>
                                                                 <li><a href="#" data-toggle="tooltip" data-placement="right"
@@ -228,7 +247,7 @@
                                     </div>
                                 </div>
                                 <div style="text-align: center">
-                                    {{ $products->links() }}
+                                    {{ $products->appends(request()->query())->links() }}
                                 </div>
                             </div>
                         </div>
@@ -239,7 +258,7 @@
     </div>
     <!-- End Shop Page -->
 
-    
+
   <!-- Start Blog  -->
   <div class="latest-blog">
     <div class="container">

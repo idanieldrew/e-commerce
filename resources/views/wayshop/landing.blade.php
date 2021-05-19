@@ -100,7 +100,7 @@
                                 <div class="type-lb">
                                     <p class="sale">Sale</p>
                                 </div>
-                                <img src="{{ asset('front-assets/images/Desktops.jpg') }}" class="img-fluid"
+                                <img src="{{ productImage($product->image) }}" class="img-fluid"
                                      alt="Image">
                                 <div class="mask-icon">
                                     <ul>

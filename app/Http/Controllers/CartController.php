@@ -16,9 +16,11 @@ class CartController extends Controller
      */
     public function index()
     {
-        $products = Product::takeProduc()->get();
+        
+        $qua = session()->get('quantity');
+        // $products = Product::takeProduc()->get();
 
-        return view('wayshop.cart', compact('products'));
+        return view('wayshop.cart',compact('qua'));
     }
 
     /**
@@ -44,12 +46,12 @@ class CartController extends Controller
         });
         if ($double->isNotEmpty()) {
 
-            return redirect()->route('cart-page')->with('success-message', 'Item is already in  your cart.');
+            return redirect()->route('cart.index')->with('success-message', 'Item is already in  your cart.');
 
         }
         Cart::add($request->id, $request->name, 1, $request->price)->associate('App\Product');
 
-        return redirect()->route('cart-page')->with('success-message', 'this product saved is succssfully.');
+        return redirect()->route('cart.index')->with('success-message', 'this product saved is succssfully.');
     }
 
     /**
@@ -82,24 +84,24 @@ class CartController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-     /*   $validator = Validator::make($request->all(), [
+ {
+        $validator = Validator::make($request->all(), [
             'quantity' => 'required|numeric|between:1,5'
         ]);
 
         if ($validator->fails()) {
             session()->flash('errors', collect(['Quantity must be between 1 and 5.']));
-            return response()->json(['success' => false], 400);
-        }*/
-/*
+            return response()->json(['success' => false], 422);
+        }
+
         if ($request->quantity > $request->productQuantity) {
             session()->flash('errors', collect(['We currently do not have enough items in stock.']));
             return response()->json(['success' => false], 400);
-        }*/
+        }
 
-        Cart::update($id, 3);
+        Cart::update($id, $request->quantity);
         session()->flash('success_message', 'Quantity was updated successfully!');
-        return redirect()->route('cart-page');
+        return response()->json(['success' => true]);
     }
 
     /**
@@ -129,9 +131,9 @@ class CartController extends Controller
             return $rowId === $id;
         });
         if ($double->isNotEmpty()) {
-                return redirect()->route('cart-page')->with('success-message', 'Item is already in saved for later');
+                return redirect()->route('cart.index')->with('success-message', 'Item is already in saved for later');
             }
             Cart::instance('add-save-for-later')->add($item->id, $item->name, 1, $item->price)->associate('App\Product');
-            return redirect()->route('cart-page')->with('success-message', 'Item saved in save for later');
+            return redirect()->route('cart.index')->with('success-message', 'Item saved in save for later');
     }
 }
