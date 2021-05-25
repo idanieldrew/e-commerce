@@ -7,7 +7,7 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-
+import router from './router'
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -30,5 +30,6 @@ Vue.component('category-res', require('./components/categoryRes.vue').default);
  */
 
 const app = new Vue({
+    'router',
     el: '#app',
 });

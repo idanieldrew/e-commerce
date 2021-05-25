@@ -2013,130 +2013,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'category',
+  name: "category",
   data: function data() {
     return {};
+  },
+  computed: {
+    url: function url() {
+      return "/shop/?category=".concat(this.categories[0].id);
+    }
   },
   mounted: function mounted() {
     console.log("ok");
   },
   props: {
-    products: {
-      required: true,
-      type: Array
-    },
     categories: {
       required: true,
       type: Array
-    },
-    CategoryName: {
-      required: true,
-      type: Array
     }
-  }
+  } //   watch:{
+  //       this.switchCategory()
+  //   },
+  //   methods: {
+  //       switchCategory(){
+  //           axios.get('/shop',{
+  //               categories
+  //           })
+  //       }
+  //   },
+
 });
 
 /***/ }),
@@ -38529,153 +38434,65 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "shop-box-inner" }, [
-    _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row" }, [
-        _c(
-          "div",
-          {
-            staticClass:
-              "col-xl-3 col-lg-3 col-sm-12 col-xs-12 sidebar-shop-left"
-          },
-          [
-            _c("div", { staticClass: "product-categori" }, [
-              _vm._m(0),
-              _vm._v(" "),
-              _c("div", { staticClass: "filter-sidebar-left" }, [
-                _vm._m(1),
+  return _c(
+    "div",
+    { staticClass: "col-xl-3 col-lg-3 col-sm-12 col-xs-12 sidebar-shop-left" },
+    [
+      _c("div", { staticClass: "product-categori" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "filter-sidebar-left" }, [
+          _vm._m(1),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "list-group list-group-collapse list-group-sm list-group-tree",
+              attrs: { id: "list-group-men", "data-children": ".sub-men" }
+            },
+            [
+              _c("div", { staticClass: "list-group-collapse sub-men" }, [
+                _vm._m(2),
                 _vm._v(" "),
                 _c(
                   "div",
                   {
-                    staticClass:
-                      "list-group list-group-collapse list-group-sm list-group-tree",
-                    attrs: { id: "list-group-men", "data-children": ".sub-men" }
+                    staticClass: "collapse show",
+                    attrs: { id: "sub-men1", "data-parent": "#list-group-men" }
                   },
-                  [
-                    _c("div", { staticClass: "list-group-collapse sub-men" }, [
-                      _vm._m(2),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "collapse show",
-                          attrs: {
-                            id: "sub-men1",
-                            "data-parent": "#list-group-men"
-                          }
-                        },
-                        _vm._l(_vm.categories, function(category) {
-                          return _c(
-                            "div",
-                            { key: category.id, staticClass: "list-group" },
-                            [
-                              _c(
-                                "a",
-                                {
-                                  staticClass:
-                                    "list-group-item list-group-item-action",
-                                  attrs: {
-                                    href: "/shop/?category=" + category.slug
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                      " +
-                                      _vm._s(category.name) +
-                                      "\n                      "
-                                  ),
-                                  _c("small", { staticClass: "text-muted" }, [
-                                    _vm._v("(50)")
-                                  ])
-                                ]
-                              )
-                            ]
-                          )
-                        }),
-                        0
-                      )
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _vm._m(3)
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "row product-categorie-box" }, [
-              _c("div", { staticClass: "tab-content" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "tab-pane fade show active",
-                    attrs: { role: "tabpanel", id: "grid-view" }
-                  },
-                  [
-                    _c(
+                  _vm._l(_vm.categories, function(category) {
+                    return _c(
                       "div",
-                      { staticClass: "row" },
-                      _vm._l(_vm.products, function(product) {
-                        return _c(
-                          "div",
+                      { key: category.id, staticClass: "list-group" },
+                      [
+                        _c(
+                          "a",
                           {
-                            key: product.id,
-                            staticClass: "col-sm-6 col-md-6 col-lg-4 col-xl-4"
+                            staticClass:
+                              "list-group-item list-group-item-action",
+                            attrs: { href: _vm.url }
                           },
                           [
-                            _c("div", { staticClass: "products-single fix" }, [
-                              _c("div", { staticClass: "box-img-hover" }, [
-                                _vm._m(4, true),
-                                _vm._v(" "),
-                                _c("img", {
-                                  staticClass: "img-fluid",
-                                  attrs: {
-                                    src: "/storage/" + product.image,
-                                    alt: "Image"
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "mask-icon" }, [
-                                  _vm._m(5, true),
-                                  _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "cart",
-                                      attrs: { href: "/shop/" + product.id }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                          details...\n                        "
-                                      )
-                                    ]
-                                  )
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "why-text" }, [
-                                _c("h4", [_vm._v(_vm._s(product.details))]),
-                                _vm._v(" "),
-                                _c("h5", [_vm._v(_vm._s(product.price))])
-                              ])
-                            ])
+                            _vm._v(
+                              "\n                " +
+                                _vm._s(category.name) +
+                                "\n                "
+                            )
                           ]
                         )
-                      }),
-                      0
+                      ]
                     )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticStyle: { "text-align": "center" } })
+                  }),
+                  0
+                )
               ])
-            ]),
-            _vm._v(" -->\n      ")
-          ]
-        )
+            ]
+          )
+        ])
       ])
-    ])
-  ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
@@ -38719,103 +38536,10 @@ var staticRenderFns = [
         }
       },
       [
-        _vm._v("Clothing\n                  "),
+        _vm._v("Clothing\n            "),
         _c("small", { staticClass: "text-muted" }, [_vm._v("(100)")])
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "col-12 col-sm-4 text-center text-sm-right" },
-      [
-        _c("ul", { staticClass: "nav nav-tabs ml-auto" }, [
-          _c("li", [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link active",
-                attrs: { href: "#grid-view", "data-toggle": "tab" }
-              },
-              [_c("i", { staticClass: "fa fa-th" })]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                attrs: { href: "#list-view", "data-toggle": "tab" }
-              },
-              [_c("i", { staticClass: "fa fa-list-ul" })]
-            )
-          ])
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "type-lb" }, [
-      _c("p", { staticClass: "sale" }, [_vm._v("Sale")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("ul", [
-      _c("li", [
-        _c(
-          "a",
-          {
-            attrs: {
-              href: "#",
-              "data-toggle": "tooltip",
-              "data-placement": "right",
-              title: "View"
-            }
-          },
-          [_c("i", { staticClass: "fas fa-eye" })]
-        )
-      ]),
-      _vm._v(" "),
-      _c("li", [
-        _c(
-          "a",
-          {
-            attrs: {
-              href: "#",
-              "data-toggle": "tooltip",
-              "data-placement": "right",
-              title: "Compare"
-            }
-          },
-          [_c("i", { staticClass: "fas fa-sync-alt" })]
-        )
-      ]),
-      _vm._v(" "),
-      _c("li", [
-        _c(
-          "a",
-          {
-            attrs: {
-              href: "#",
-              "data-toggle": "tooltip",
-              "data-placement": "right",
-              title: "Add to Wishlist"
-            }
-          },
-          [_c("i", { staticClass: "far fa-heart" })]
-        )
-      ])
-    ])
   }
 ]
 render._withStripped = true

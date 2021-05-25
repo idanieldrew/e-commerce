@@ -31,14 +31,14 @@ class ShopController extends Controller
         } else {
             $products = Product::take(6)->where('featured', true);
             $categories = Category::all();
-            $categoryName = 'feacher';
+            $categoryName = 'feactuer';
         }
         if (request()->sort == 'low_hight') {
-            $products = $products->orderBy('price')->get();
+            $products = $products->orderBy('price')->paginate(6);
         } elseif (request()->sort == 'hight_low') {
-            $products = $products->orderBy('price', 'desc')->get();
+            $products = $products->orderBy('price', 'desc')->paginate(6);
         } else {
-            $products = $products->get();
+            $products = $products->paginate(6);
         }
          return view('wayshop.shop', compact('products', 'categories', 'categoryName'));
 
