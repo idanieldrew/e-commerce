@@ -38,7 +38,7 @@
                             </form>
                         </div>
                          <div class="filter-sidebar-left">
-                    {{-- <div class="title-left">
+                     <div class="title-left">
                         <h3>Categories</h3>
                     </div>
                     <div class="list-group list-group-collapse list-group-sm list-group-tree" id="list-group-men"
@@ -58,8 +58,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> --}}
-                    <category-res :categories="{{ $categories }}" />
+                    </div> 
                 </div>
                         {{-- <div class="list-group-collapse sub-men">
                                 <a class="list-group-item list-group-item-action" href="#sub-men2"
