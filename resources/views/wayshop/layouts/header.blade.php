@@ -144,9 +144,9 @@
             <!-- Start Atribute Navigation -->
             <div class="attr-nav">
                 {{-- <input type="text" name="query" placeholder="Search.." id="myInput" onkeyup="filterFunction()"> --}}
-                <form action="{{ route('shop.searches') }}" method="get">
+                {{-- <form action="{{ route('shop.searches') }}" method="get">
                     <input type="text" class="form-control" placeholder="search ...">  
-                </form>
+                </form> --}}
                 {{-- <search-res></search-res> --}}
                 {{-- <ul>
                     <div class="dropdown">
@@ -163,7 +163,15 @@
                                 class="badge">{{ \Gloudemans\Shoppingcart\Facades\Cart::instance('default')->count() }}</span>
                         </a></li>
                 </ul> --}}
+                <ul>
+                    <li class="side-menu"><a href="{{ route('cart.index') }}">
+                        <i class="fa fa-shopping-bag"></i>
+                        <span
+                            class="badge">{{ \Gloudemans\Shoppingcart\Facades\Cart::instance('default')->count() }}</span>
+                    </a></li>
+                </ul>
             </div>
+            
             <!-- End Atribute Navigation -->
         </div>
         <!-- Start Side Menu -->

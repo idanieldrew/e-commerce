@@ -23,7 +23,7 @@ Route::get('/shop', 'ShopController@index')->name('shop-page');
 Route::get('/shop/{id}', 'ShopController@show')->name('special-product');
 
 // cart page
-Route::get('/cart', 'CartController@index')->middleware('auth')->name('cart.index');
+Route::get('/cart', 'CartController@index')->name('cart.index');
 
 // submit a product
 Route::post('/cart', 'CartController@store')->name('cart-store');

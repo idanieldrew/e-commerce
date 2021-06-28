@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\OrderSendMailJob;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use App\Order;
 use App\OrderProduct;
-use Cartalyst\Stripe\Exception\CardErrorException;
-
+use Illuminate\Support\Facades\Bus;
 
 class CheckoutController extends Controller
 {
@@ -54,12 +54,16 @@ class CheckoutController extends Controller
         foreach (Cart::content() as $value) {
             OrderProduct::create([
                 'order_id' => $order->id,
-                'product_id' => $value->id
-                //quantity ???
+                'product_id' => $value->id,
+                'quantity' => 1
             ]);
         }
+        Bus::chain([
+            new OrderSendMailJob($order->billing_email),
+            //some order  
+        ])->dispatch();
+        // dispatch(new OrderSendMailJob($order->billing_email));
     }
-
 
     private function getValues()
     {
