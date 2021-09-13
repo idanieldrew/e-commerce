@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\IncompleteCart;
 use App\Product;
+use App\User;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -15,22 +17,11 @@ class CartController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        
+    {        
         $qua = session()->get('quantity');
         // $products = Product::takeProduc()->get();
 
-        return view('wayshop.cart',compact('qua'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
+        return view('wayshop.cart', compact('qua'));
     }
 
     /**
@@ -47,33 +38,13 @@ class CartController extends Controller
         if ($double->isNotEmpty()) {
 
             return redirect()->route('cart.index')->with('success-message', 'Item is already in  your cart.');
-
         }
-        Cart::add($request->id, $request->name, 1, $request->price)->associate('App\Product');
+        $cart = Cart::add($request->id, $request->name, 1, $request->price)->associate('App\Product');
+
+        // $user = User::find(auth()->user())->name;
+        // IncompleteCart::dispatch($user);
 
         return redirect()->route('cart.index')->with('success-message', 'this product saved is succssfully.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
@@ -84,7 +55,7 @@ class CartController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
- {
+    {
         $validator = Validator::make($request->all(), [
             'quantity' => 'required|numeric|between:1,5'
         ]);
@@ -131,9 +102,9 @@ class CartController extends Controller
             return $rowId === $id;
         });
         if ($double->isNotEmpty()) {
-                return redirect()->route('cart.index')->with('success-message', 'Item is already in saved for later');
-            }
-            Cart::instance('add-save-for-later')->add($item->id, $item->name, 1, $item->price)->associate('App\Product');
-            return redirect()->route('cart.index')->with('success-message', 'Item saved in save for later');
+            return redirect()->route('cart.index')->with('success-message', 'Item is already in saved for later');
+        }
+        Cart::instance('add-save-for-later')->add($item->id, $item->name, 1, $item->price)->associate('App\Product');
+        return redirect()->route('cart.index')->with('success-message', 'Item saved in save for later');
     }
 }

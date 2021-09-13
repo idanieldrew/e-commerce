@@ -23,10 +23,10 @@ Route::get('/shop', 'ShopController@index')->name('shop-page');
 Route::get('/shop/{id}', 'ShopController@show')->name('special-product');
 
 // cart page
-Route::get('/cart', 'CartController@index')->name('cart.index');
+Route::get('/cart', 'CartController@index')->name('cart.index')->middleware('auth');
 
 // submit a product
-Route::post('/cart', 'CartController@store')->name('cart-store');
+Route::post('/cart', 'CartController@store')->name('cart-store')->middleware('auth');
 
 // remove a product wwith rowId
 Route::delete('/cart/{product}', 'CartController@destroy')->name('cart-destroy');
